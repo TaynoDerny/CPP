@@ -91,6 +91,7 @@ int main()
                 break;
 
             default:
+                cout << "ОШИБКА - введите число от 1 до 4" << endl;
                 return 0;
 
         }
