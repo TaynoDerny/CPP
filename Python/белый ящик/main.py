@@ -44,7 +44,7 @@ def main_1():
     a,b,c = main_input()
     triangle(a,b,c)
 def main_2():
-    webbrowser.open("https://example.com/image.png")  
+    webbrowser.open("https://github.com/TaynoDerny/CPP/blob/main/Python/%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9%20%D1%8F%D1%89%D0%B8%D0%BA/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5_2.png")  
 def main_3():
     a,b,c = main_input()
     a,b,c = sorted((a,b,c))
