@@ -3,138 +3,143 @@
 
 using namespace std;
 
-// Функция для уравнения 1: 2x - 5 ln x - 3 = 0
-double f1(double x) {
-    return 2*x - 5*log(x) - 3;
+// Функция для  F(x) = 2lg(x+7) - 5sin(x)
+double F(double x) {
+    return 2 * log10(x + 7) - 5 * sin(x);
 }
 
-// Производная для уравнения 1
-double df1(double x) {
-    return 2 - 5/x;
+
+
+
+// Производная функции F'(x)
+double F_derivative(double x) {
+    return (2 / ((x + 7) * log(10))) - 5 * cos(x);
 }
 
-// Вторая производная для уравнения 1
-double d2f1(double x) {
-    return 5/(x*x);
+// Вторая производная функции F''(x)
+double F_second_derivative(double x) {
+    return (-2 / ((x + 7) * (x + 7) * log(10))) + 5 * sin(x);
 }
 
-// МЕТОД КАСАТЕЛЬНЫХ (Ньютона)
-double newton_method(double a, double b, double epsilon, int& iterations) {
-    double x0, x1;
-    
-    // Выбор начального приближения
-    if (f1(a) * d2f1(a) > 0) {
-        x0 = a;
+
+
+
+
+// Метод касательных 
+double newton_method(double a, double b, double e) {
+    double x0;
+    if (F(a) * F(b) < 0) {
+        x0 = (F(a) < 0) ? a : b;
     } else {
-        x0 = b;
+        x0 = a;
     }
     
-    iterations = 0;
+    double x = x0;
+    int iter = 0;
     
-    do {
-        x1 = x0 - f1(x0) / df1(x0);
-        iterations++;
-             
-        if (fabs(x1 - x0) < epsilon) break;
-        x0 = x1;
+    while (iter < 100) {
+        double x_new = x - F(x) / F_derivative(x);
         
-    } while (iterations < 1000);
-    
-    return x1;
-}
-
-// МЕТОД ХОРД
-double chord_method(double a, double b, double epsilon, int& iterations) {
-    double x;
-    
-    iterations = 0;
-    
-    if (f1(a) * f1(b) >= 0) {
-        cout << "Ошибка: на концах отрезка функция одного знака!" << endl;
-        return 0;
-    }
-    
-    do {
-        x = (a * f1(b) - b * f1(a)) / (f1(b) - f1(a));
-        
-        if (f1(a) * f1(x) < 0) {
-            b = x;
-        } else {
-            a = x;
+        if (fabs(x_new - x) < e) {
+            cout << "Найден корень за " << iter << " итераций" << endl;
+            return x_new;
         }
         
-        iterations++;
-             
-    } while (fabs(b - a) > epsilon && iterations < 1000);
+        x = x_new;
+        iter++;
+    }
     
     return x;
 }
 
-// КОМБИНИРОВАННЫЙ МЕТОД
-double combined_method(double a, double b, double epsilon, int& iterations) {
-    double x_chord, x_tangent;
+// метод хорд
+double chord_method_simple(double a, double b, double e) {
+    double x0, c;
     
-    iterations = 0;
+
+    double F_a = F(a);
+    double F_b = F(b);
     
-    if (f1(a) * f1(b) >= 0) {
-        cout << "Ошибка: на концах отрезка функция одного знака!" << endl;
-        return 0;
+    if (F_a < 0) {
+        x0 = a;
+        c = b;
+    } else {
+        x0 = b;
+        c = a;
     }
     
-    do {
-        // Метод хорд
-        x_chord = (a * f1(b) - b * f1(a)) / (f1(b) - f1(a));
-        
-        // Метод касательных
-        if (f1(a) * d2f1(a) > 0) {
-            x_tangent = a - f1(a) / df1(a);
-        } else {
-            x_tangent = b - f1(b) / df1(b);
-        }
-        
-        // Сужаем интервал
-        if (f1(a) * f1(x_chord) < 0) {
-            b = x_chord;
-        } else {
-            a = x_chord;
-        }
-        
-        if (f1(a) * f1(x_tangent) < 0) {
-            b = x_tangent;
-        } else {
-            a = x_tangent;
-        }
-        
-        iterations++;
-        
-    } while (fabs(b - a) > epsilon && iterations < 1000);
+    double x_prev = x0;
+    double x_current;
     
-    return (a + b) / 2;
+    do {
+        x_current = (x_prev * F(c) - c * F(x_prev)) / (F(c) - F(x_prev));
+        
+        if (fabs(x_current - x_prev) <= e) {
+            break;
+        }
+        
+        x_prev = x_current;
+    } while (true);
+    
+    return x_current;
+}
+
+
+// Комбинированный метод хорд и касательных
+double combined_method_simple(double a, double b, double eps) {
+    double x0, x1, c;
+    
+    double F_a = F(a);
+    double F_second_a = F_second_derivative(a);
+    
+    if (F_a * F_second_a < 0) {
+        x0 = a; x1 = b; c = b;
+    } else {
+        x0 = b; x1 = a; c = a;
+    }
+    
+    double x_chord = x0;
+    double x_tangent = x1;
+    
+    for (int i = 0; i < 100; i++) {
+        x_chord = (x_chord * F(c) - c * F(x_chord)) / (F(c) - F(x_chord));
+        x_tangent = x_tangent - F(x_tangent) / F_derivative(x_tangent);
+        
+        if (fabs(x_tangent - x_chord) < 2 * eps) {
+            break;
+        }
+    }
+    
+    return (x_chord + x_tangent) / 2.0;
 }
 
 int main() {
-    cout << "=== РЕШЕНИЕ УРАВНЕНИЯ: 2x - 5 ln x - 3 = 0 ===" << endl << endl;
+    double a = 2.7;
+    double b = 2.8;
+    double e = 0.000001;
     
-    // Задание 1: Метод касательных с точностью 10^-6
-    cout << "--- ЗАДАНИЕ 1: Метод касательных (точность 10^-6) ---" << endl;
-    int iter1;
-    double root1 = newton_method(0.5, 1.0, 1e-6, iter1);
-    cout << "Корень: " << root1 << endl;
-    cout << "Итераций: " << iter1 << endl << endl;
+    double method = chord_method_simple(a, b, e);
     
-    // Задание 2: Метод хорд с точностью 10^-3
-    cout << "--- ЗАДАНИЕ 2: Метод хорд (точность 10^-3) ---" << endl;
-    int iter2;
-    double root2 = chord_method(0.5, 1.0, 1e-3, iter2);
-    cout << "Корень: " << root2 << endl;
-    cout << "Итераций: " << iter2 << endl << endl;
+    cout << "Метод хорд"<<endl;
+    cout << "Решение уравнения: 2lg(x+7) - 5sin(x) = 0" << endl;
+    cout << "Интервал: [" << a << ", " << b << "]" << endl;
+    cout << "Точность: " << e << endl;
+    cout << "Найденный корень: " << method << endl;
+
+    cout <<endl<< "Метод касательных"<<endl;
+    cout << "Уравнение: 2lg(x+7) - 5sin(x) = 0" << endl;
+    cout << "Интервал: " << a << " до " << b << endl;
+    method = newton_method(a, b, e);
+    cout << "Корень: " << method << endl;
+
+    cout << endl << "Комбинированный метод" << endl;
+    cout << "Уравнение: 2lg(x+7) - 5sin(x) = 0" << endl;
+    cout << "Интервал: " << a << " до " << b << endl;
+    method = combined_method_simple(a, b, e);
+    cout << "Корень: " << method << endl;
+
     
-    // Задание 3: Комбинированный метод с точностью 10^-6
-    cout << "--- ЗАДАНИЕ 3: Комбинированный метод (точность 10^-6) ---" << endl;
-    int iter3;
-    double root3 = combined_method(0.5, 1.0, 1e-6, iter3);
-    cout << "Корень: " << root3 << endl;
-    cout << "Итераций: " << iter3 << endl;
-    
+
+
     return 0;
 }
