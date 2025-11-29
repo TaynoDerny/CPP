@@ -55,7 +55,6 @@ double bisection_method(double a, double b, double epsilon) {
 }
 
 int main() {
-    cout << "=== ПРАКТИЧЕСКАЯ РАБОТА №2 ===" << endl;
     cout << "Решение уравнения x * sin(x) - 1 = 0" << endl;
     cout << "Метод половинного деления" << endl;
     cout << "================================" << endl << endl;
