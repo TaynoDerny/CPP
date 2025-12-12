@@ -1,6 +1,7 @@
 #include <iostream>
 
 using namespace std;
+// Функция находящая размер строки
 int lenght(char str[]){
     int size = 0;
     for (int i = 0; str[i] != '\0'; i++)
@@ -10,7 +11,7 @@ int lenght(char str[]){
     return size;
 }
 
-
+//Функция стриущая col_symb символов начиная с pozit 
 void erase(char str[], int pozit, int col_symb=1) {
     int i = pozit;
     int j = pozit + col_symb;
@@ -25,6 +26,7 @@ void erase(char str[], int pozit, int col_symb=1) {
 
 
 }
+//Функция удаляет все символы передынные ей в строке
 void removeChar(char str[],char symb){
     int i = 0;
     while (str[i] != '\0') {
@@ -36,7 +38,7 @@ void removeChar(char str[],char symb){
         }
     }
 }
-
+//Функция заменяет символ symb на символ tosymb в переданной ей строке
 void replace(char str[],char symb,char tosymb){
     for (int i = 0; i < str[i] != '\0'; i++)
     {
@@ -46,6 +48,7 @@ void replace(char str[],char symb,char tosymb){
     }
     
 }
+// Функция вставляет переданный ей символ 
 void past(char str[],int pSymb,char symb){
     for (int i = lenght(str); i >=pSymb; i--)
     {
@@ -54,6 +57,7 @@ void past(char str[],int pSymb,char symb){
     str[pSymb]=symb;
     
 }
+// Функция  подсчитывает сколько символ в переданной ей строке
 int countSymb(char str[], char symb){
     int count = 0;
     for (int i = 0; i < str[i] != '\0'; i++)
@@ -64,6 +68,7 @@ int countSymb(char str[], char symb){
     }
     return count;
 }
+// Функция выводит количество букв, цифр и остальных символов в переданной ей строке 
 void Symb_col(char str[]){
     int letters=0,digits=0,others=0;
     for (int i = 0; str[i]!='\0'; i++)
@@ -79,6 +84,7 @@ void Symb_col(char str[]){
     cout << "Количество остальных символов = "<<others<<endl;
     
 }
+//Функция выводит строку
 void strPrint(char arr[]){
     for (int i = 0; arr[i]!='\0'; i++)
     {
@@ -130,9 +136,17 @@ int main(){
     replace(str_4,'.','!');
     strPrint(str_4);
 
-    // Задача 5
+    //Задача 5
     strPrint(str_5);
-    Symb_col(str_5);
+    char symbcol;
+    cout << "Введи символ для подсчета его в строке"<<endl;
+    cin>>symbcol;
+    cout << "Символ "<<symbcol<<" "<<countSymb(str_5,symbcol)<<" раз встречается в строке"<<endl;
+    
+
+    // Задача 6
+    strPrint(str_6);
+    Symb_col(str_6);
     
 
 
