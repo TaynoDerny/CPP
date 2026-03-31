@@ -38,15 +38,14 @@ void MainWindow::on_pushButton_clicked()
     }
 
 
-
-    while(firstNum>secondNum || firstNum>thirdNum || secondNum>thirdNum || secondNum<firstNum){
-        if (thirdNum<secondNum){
+    while(firstNum<secondNum || firstNum<thirdNum || secondNum<thirdNum || secondNum>firstNum){
+        if (thirdNum>secondNum){
             ui -> lineEdit_2->setText(QString::number(thirdNum));
             ui -> lineEdit_3->setText(QString::number(secondNum));
             std::swap(thirdNum,secondNum);
         }
 
-        if (secondNum<firstNum){
+        if (secondNum>firstNum){
             ui -> lineEdit->setText(QString::number(secondNum));
             ui -> lineEdit_2->setText(QString::number(firstNum));
             std::swap(firstNum,secondNum);
