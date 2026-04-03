@@ -1,0 +1,8 @@
+#include "ThreadGuard.h"
+
+ThreadGuard::ThreadGuard(std::thread t) : t(std::move(t)) {}
+
+ThreadGuard::~ThreadGuard() {
+    if (t.joinable())
+        t.join();
+}
