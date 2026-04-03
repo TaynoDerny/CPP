@@ -15,7 +15,5 @@ namespace Geometry {
             Circle(double r) : radius(r) {}
             double area();
         };
-
-    } // namespace Shapes
-
-} // namespace Geometry
+    } 
+} 

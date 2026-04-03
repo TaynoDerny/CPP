@@ -16,6 +16,5 @@ namespace Geometry {
             return Geometry::circleArea(radius);
         }
 
-    } // namespace Shapes
-
-} // namespace Geometry
+    } 
+} 

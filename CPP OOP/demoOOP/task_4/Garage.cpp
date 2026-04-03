@@ -1,4 +1,4 @@
-#pragma once
+#include "Garage.h"
 
 template<typename T>
 int Garage<T>::garageCount = 0;

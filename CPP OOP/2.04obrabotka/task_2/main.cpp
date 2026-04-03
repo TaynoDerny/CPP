@@ -22,20 +22,16 @@ namespace Logger {
             if (file.is_open())
                 file << message << "\n";
         }
-
-    } // namespace FileLogger
-
-} // namespace Logger
+    } 
+} 
 
 int main() {
-    // using namespace Logger только внутри функции
     using namespace Logger;
 
     log(INFO,    "Application started");
     log(WARNING, "Low memory");
     log(ERROR,   "File not found");
 
-    // Вложенный namespace — полная квалификация
     FileLogger::logToFile("app.log", "Logged to file");
     std::cout << "Message written to app.log\n";
 

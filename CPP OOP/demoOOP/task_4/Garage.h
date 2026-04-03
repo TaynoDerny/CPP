@@ -24,5 +24,3 @@ private:
     int capacity;
     static int garageCount;
 };
-
-#include "Garage.cpp"
