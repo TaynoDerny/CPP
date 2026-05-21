@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QVector>
+#include <QStack>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,11 +17,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_btnGenerate_clicked();
-    void on_btnCalculate_clicked();
+    void on_btnCreateStack_clicked();
+    void on_btnCalcStack_clicked();
 
 private:
     Ui::MainWindow *ui;
-    QVector<QVector<int>> matrix;
+    QStack<int> myStack;
 };
-#endif // MAINWINDOW_H
+#endif

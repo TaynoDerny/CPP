@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QVector>
+#include <QQueue>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,11 +18,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_btnGenerate_clicked();
-    void on_btnCalculate_clicked();
+    void on_pushButton_generate_clicked();
+    void on_pushButton_calculate_clicked();
 
 private:
     Ui::MainWindow *ui;
-    QVector<QVector<int>> matrix;
+    QQueue<int> myQueue;
 };
-#endif // MAINWINDOW_H
+#endif

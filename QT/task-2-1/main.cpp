@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QTextStream>
 #include <QString>
+#include <QDebug>
 
 int main()
 {

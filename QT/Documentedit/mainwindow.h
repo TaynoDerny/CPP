@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QVector>
+#include "texteditor.h"
+#include "toolpalette.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,11 +18,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_btnGenerate_clicked();
-    void on_btnCalculate_clicked();
+    void onNewTextDocument();
+    void onCloneTool();
 
 private:
     Ui::MainWindow *ui;
-    QVector<QVector<int>> matrix;
+    TextEditor* textEditor;
+    ToolPalette* palette;
 };
-#endif // MAINWINDOW_H
+
+#endif

@@ -2,7 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QVector>
+#include <QList>
+#include <QListWidget>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QMessageBox>
+#include <QRandomGenerator>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,11 +23,15 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_btnGenerate_clicked();
-    void on_btnCalculate_clicked();
+    void on_btnFill_clicked();
+    void on_btnAdd_clicked();
+    void on_btnRemove_clicked();
 
 private:
     Ui::MainWindow *ui;
-    QVector<QVector<int>> matrix;
+    QList<int> list;
+
+    void updateListDisplay();
 };
+
 #endif // MAINWINDOW_H
