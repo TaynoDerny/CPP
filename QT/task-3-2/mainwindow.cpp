@@ -19,7 +19,6 @@ void MainWindow::updateDisplay()
     ui->textEditList1->clear();
     ui->textEditList2->clear();
 
-    // Первый список через итераторы
     QString str1;
     QList<int>::iterator it1 = list1.begin();
     while (it1 != list1.end()) {
@@ -28,7 +27,6 @@ void MainWindow::updateDisplay()
     }
     ui->textEditList1->setPlainText(str1);
 
-    // Второй список через итераторы
     QString str2;
     QList<int>::iterator it2 = list2.begin();
     while (it2 != list2.end()) {

@@ -7,10 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // По умолчанию выбран radioAdd
     ui->radioAdd->setChecked(true);
 
-    // Сразу заполним список случайными числами
     on_btnFill_clicked();
 }
 
